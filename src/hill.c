@@ -38,7 +38,7 @@ Rota *criarRotas(Instancia instancia) {
 	return rotas;
 }
 
-void rotasAleatorias(Rota *rotas, Instancia instancia) {
+void rotasAleatorias(Rota rotas[], Instancia instancia) {
 
 	int quant_min_rotas = quantMinRotas(instancia);
 
@@ -128,84 +128,4 @@ void hillClimbing(Rota rotas[], Instancia instancia) {
 			}
 		}
 	} while(custo_inicial != custo(instancia.pontos[0], rotas, quant_min_rotas));
-}
-
-void hillClimbing2(Rota rotas[], Instancia instancia) {
-	int quant_min_rotas = quantMinRotas(instancia);
-
-	Rota principal = rotas[0];
-	Rota secundaria = rotas[1];
-
-	int i, j, k;
-
-	i = 2;
-	j = 2;
-
-	float custo_principal = 0, custo_secundaria = 0;
-
-
-	custo_principal += distancia(instancia.pontos[0], principal.caminho[0]);
-	
-	for(k = 0; k < principal.quant - 1; k++) {
-		custo_principal += distancia(principal.caminho[k], principal.caminho[k + 1]);
-		printf("%d ", principal.caminho[k].id);
-	}
-	
-	printf("%d\n", principal.caminho[k].id);
-	custo_principal += distancia(instancia.pontos[0], principal.caminho[k]);
-
-
-	custo_secundaria += distancia(instancia.pontos[0], secundaria.caminho[0]);
-	
-	for(k = 0; k < secundaria.quant - 1; k++) {
-		custo_secundaria += distancia(secundaria.caminho[k], secundaria.caminho[k + 1]);
-		printf("%d ", secundaria.caminho[k].id);
-	}
-	
-	printf("%d\n", secundaria.caminho[k].id);
-	custo_secundaria += distancia(instancia.pontos[0], secundaria.caminho[k]);
-
-	// printf("custo_principal = %f\n", custo_principal);
-	// printf("custo_secundaria = %f\n", custo_secundaria);
-
-
-
-	float custo_novo_principal = 0, custo_novo_secundaria = 0;
-
-	custo_novo_principal += distancia(instancia.pontos[0], principal.caminho[0]);
-
-	for(k = 0; k < principal.quant - 1; k++) {
-		if(k == i - 1) {
-			custo_novo_principal += distancia(principal.caminho[k], secundaria.caminho[j]);
-			custo_novo_principal += distancia(principal.caminho[k + 1], secundaria.caminho[j]);
-			printf("%d ", principal.caminho[k].id);
-			printf("%d ", secundaria.caminho[j].id);
-		} else {
-			printf("%d ", principal.caminho[k].id);
-			custo_novo_principal += distancia(principal.caminho[k], principal.caminho[k + 1]);
-		}
-	}
-
-	printf("%d\n", principal.caminho[k].id);
-	custo_novo_principal += distancia(instancia.pontos[0], principal.caminho[k]);
-
-
-	custo_novo_secundaria += distancia(instancia.pontos[0], secundaria.caminho[0]);
-
-	for(k = 0; k < secundaria.quant - 1; k++) {
-		if(k == j - 1) {
-			printf("%d ", secundaria.caminho[k].id);
-			custo_novo_secundaria += distancia(secundaria.caminho[k], secundaria.caminho[k + 2]);
-			k++;
-		} else {
-			printf("%d ", secundaria.caminho[k].id);
-			custo_novo_secundaria += distancia(secundaria.caminho[k], secundaria.caminho[k + 1]);
-		}
-	}
-	
-	printf("%d\n", secundaria.caminho[k].id);
-	custo_novo_secundaria += distancia(instancia.pontos[0], secundaria.caminho[k]);
-
-	// printf("custo_novo_principal = %f\n", custo_novo_principal);
-	// printf("custo_novo_secundaria = %f\n", custo_novo_secundaria);
 }

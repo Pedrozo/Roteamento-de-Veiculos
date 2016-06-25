@@ -4,8 +4,7 @@
 #include "prv.h"
 
 Rota *criarRotas(Instancia instancia);
-void rotasAleatorias(Rota *rotas, Instancia instancia);
+void rotasAleatorias(Rota rotas[], Instancia instancia);
 void hillClimbing(Rota rotas[], Instancia instancia);
-void hillClimbing2(Rota rotas[], Instancia instancia);
 
 #endif

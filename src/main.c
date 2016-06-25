@@ -105,11 +105,9 @@ void nSolucoes(Instancia instancia, int quant_min_rotas) {
 		rotasAleatorias(rotas, instancia);
 
 		printf("%d:\n", rep + 1);
-		// printf("Aleatorio (custo): %f\n", custo(instancia.pontos[0], rotas, quant_min_rotas));
+		printf("Aleatorio (custo): %f\n", custo(instancia.pontos[0], rotas, quant_min_rotas));
 
-		hillClimbing2(rotas, instancia);
-		system("pause");
-		return;
+		hillClimbing(rotas, instancia);
 
 		printf("Otimizado (custo): %f\n\n", custo(instancia.pontos[0], rotas, quant_min_rotas));
 
