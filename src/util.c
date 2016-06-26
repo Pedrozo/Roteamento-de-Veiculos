@@ -31,9 +31,9 @@ void toString(int n, char *str) {
 	}
 
 	str[i] = '\0';
-	
+
 	int ult = strlen(str) - 1;
-	for(i = 0; i <= len / 2; i++) {
+	for(i = 0; i <= ult / 2; i++) {
 		char aux = str[i];
 		str[i] = str[ult - i];
 		str[ult - i] = aux;
