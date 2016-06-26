@@ -21,7 +21,7 @@ int toInt(char *str) {
 	return valor;
 }
 
-// Transforma de int para string
+// Transforma o inteiro "n" em uma string, armazenada em "str"
 void toString(int n, char *str) {
 
 	int i = 0;
@@ -31,6 +31,11 @@ void toString(int n, char *str) {
 	}
 
 	str[i] = '\0';
-
-	strrev(str);
+	
+	int ult = strlen(str) - 1;
+	for(i = 0; i <= len / 2; i++) {
+		char aux = str[i];
+		str[i] = str[ult - i];
+		str[ult - i] = aux;
+	}
 }
