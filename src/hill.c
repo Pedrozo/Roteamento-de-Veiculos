@@ -1,9 +1,16 @@
 #include "hill.h"
 #include <stdlib.h>
 
+/*
+ * Retorna um vetor de rotas, com os vetores internos de pontos devidamente alocados
+ * Necessita somente do instância que possui os pontos que as rotas vão percorrer
+*/
 Rota *criarRotas(Instancia instancia) {
+	
+	// O tamanho do vetor que será retornado sera o menor possível, de acordo com as regras para resolver o problema
 	int quant_min_rotas = quantMinRotas(instancia);
 	
+
 	Rota *rotas = (Rota *) malloc(quant_min_rotas * sizeof(Rota));
 
 	Ponto tmp[instancia.dimensao];
@@ -38,6 +45,10 @@ Rota *criarRotas(Instancia instancia) {
 	return rotas;
 }
 
+/*
+ * Cria um conjunto de rotas aleatórias para resolver o problema
+ * As rotas aleatórias serão armazenadas no vetor "rotas" 
+*/
 void rotasAleatorias(Rota rotas[], Instancia instancia) {
 
 	int quant_min_rotas = quantMinRotas(instancia);
@@ -82,6 +93,10 @@ void rotasAleatorias(Rota rotas[], Instancia instancia) {
 		rotasAleatorias(rotas, instancia);
 }
 
+/*
+ * Otimiza uma determinada rota, utilizando a técnica do algoritmo Hill Climbing
+ * A rota otimizada será armazenada no vetor "rotas"
+*/
 void hillClimbing(Rota rotas[], Instancia instancia) {
 	int quant_min_rotas = quantMinRotas(instancia);
 

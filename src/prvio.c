@@ -25,6 +25,10 @@ int lerLinha(FILE *arquivo, char *linha) {
 	return 1;
 }
 
+/*
+ * Retorna a dimensão que foi lida no arquivo, ou seja, a quantidade total de pontos
+ * Caso o arquivo seja inválido retorna 0
+*/
 int lerDimensao(FILE *arquivo) {
 
 	int dimensao = -1;
@@ -50,7 +54,10 @@ int lerDimensao(FILE *arquivo) {
 		return 0; // diz que o arquivo é invalido, dimensão deve ser sempre positiva
 }
 
-
+/*
+ * Retorna a capacidade de cada veículo, que foi lida no arquivo da instância
+ * Na possibilidade do arquivo ser inválido, retorna 0
+*/
 int lerCapacidade(FILE *arquivo) {
 
 	int capacidade = -1;
@@ -75,6 +82,9 @@ int lerCapacidade(FILE *arquivo) {
 		return 0;
 }
 
+/*
+ * Preenche as coordenadas dos pontos de acordo com o arquivo
+*/
 void lerCoordenadas(FILE *arquivo, Ponto pontos[], int dimensao) {
 
 	char linha[256];
@@ -125,6 +135,9 @@ void lerCoordenadas(FILE *arquivo, Ponto pontos[], int dimensao) {
 	}
 }
 
+/*
+ * Preenche a demanda dos pontos de acordo com o arquivo
+*/
 void lerDemanda(FILE *arquivo, Ponto pontos[], int dimensao) {
 
 	char linha[256];

@@ -1,7 +1,7 @@
 #include <string.h>
 #include "util.h"
 
-// Transforma de string para int
+// Retorna um representação inteira de uma string
 int toInt(char *str) {
 
 	int valor = 0;

@@ -95,7 +95,8 @@ void nSolucoes(Instancia instancia, int quant_min_rotas) {
 	}
 
 	// Será utilizado uma matriz de rotas, pois é necessário armazenar cada uma das soluções para calcular a média, mediana e desvio padrão
-	Rota **solucoes = (Rota **) malloc(quantidade * sizeof(Rota *));
+	// Rota **solucoes = (Rota **) malloc(quantidade * sizeof(Rota *));
+	Solucao solucoes[quantidade];
 
 	int rep;
 	for(rep = 0; rep < quantidade; rep++) {
@@ -109,7 +110,9 @@ void nSolucoes(Instancia instancia, int quant_min_rotas) {
 
 		hillClimbing(rotas, instancia);
 
-		printf("Otimizado (custo): %f\n\n", custo(instancia.pontos[0], rotas, quant_min_rotas));
+		solucoes[rep].custo = custo(instancia.pontos[0], rotas, quant_min_rotas);
+
+		printf("Otimizado (custo): %f\n\n", solucoes[rep].custo);
 
 		char caminho[256];
 		caminho[0] = '\0';
@@ -125,7 +128,7 @@ void nSolucoes(Instancia instancia, int quant_min_rotas) {
 		fclose(arq);
 
 		// Armazena a solução encontrada
-		solucoes[rep] = rotas;
+		solucoes[rep].rotas = rotas;
 	}
 
 	// long double por que em uma grande quantidade de teste, os valores podem ficar um tanto quanto grandes...
@@ -135,14 +138,14 @@ void nSolucoes(Instancia instancia, int quant_min_rotas) {
 	// Soma todos os custos para calcular a média e também procura pelas melhores e piores soluções
 	int i;
 	for(i = 0; i < rep; i++) {
-		float cost = custo(instancia.pontos[0], solucoes[i], quant_min_rotas);
+		// float cost = custo(instancia.pontos[0], solucoes[i], quant_min_rotas);
 
-		if(cost < custo(instancia.pontos[0], solucoes[indice_melhor], quant_min_rotas))
+		if(solucoes[i].custo < solucoes[indice_melhor].custo)
 			indice_melhor = i;
-		else if(cost > custo(instancia.pontos[0], solucoes[indice_pior], quant_min_rotas))
+		else if(solucoes[i].custo > solucoes[indice_pior].custo)
 			indice_pior = i;
 
-		media += cost;
+		media += solucoes[i].custo;
 	}
 
 	media /= rep;
@@ -151,9 +154,9 @@ void nSolucoes(Instancia instancia, int quant_min_rotas) {
 	// Calcula a variância das rotas 
 	long double variancia = 0;
 	for(i = 0; i < rep; i++) {
-		float cost = custo(instancia.pontos[0], solucoes[i], quant_min_rotas);
+		// float cost = custo(instancia.pontos[0], solucoes[i], quant_min_rotas);
 
-		variancia += (cost - media)*(cost - media);
+		variancia += (solucoes[i].custo - media)*(solucoes[i].custo - media);
 	}
 
 	variancia /= rep;
@@ -163,8 +166,8 @@ void nSolucoes(Instancia instancia, int quant_min_rotas) {
 
 	fprintf(estat, "Média: %.2f\n", (float) media);
 	fprintf(estat, "Desvio Padrão: %.2f\n", sqrt(variancia));
-	fprintf(estat, "Melhor Solução: solucao%d (%.2f)\n", indice_melhor + 1, custo(instancia.pontos[0], solucoes[indice_melhor], quant_min_rotas));
-	fprintf(estat, "Pior Solução: solucao%d (%.2f)\n", indice_pior + 1, custo(instancia.pontos[0], solucoes[indice_pior], quant_min_rotas));
+	fprintf(estat, "Melhor Solução: solucao%d (%.2f)\n", indice_melhor + 1, solucoes[indice_melhor].custo);
+	fprintf(estat, "Pior Solução: solucao%d (%.2f)\n", indice_pior + 1, solucoes[indice_pior].custo);
 }
 
 // Função que vai executar o algoritmo durante um periodo de tempo
