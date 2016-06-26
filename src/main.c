@@ -159,10 +159,37 @@ void nSolucoes(Instancia instancia, int quant_min_rotas) {
 
 	variancia /= rep;
 
+
+	float custos[quantidade];
+
+	for(i = 0; i < quantidade; i++)
+		custos[i] = solucoes[i].custo;
+
+	int j;
+	for(i = 0; i < quantidade - 1; i++) {
+		for(j = i + 1; j < quantidade; j++) {
+			if(custos[i] > custos[j]) {
+				float aux = custos[i];
+				custos[i] = custos[j];
+				custos[j] = aux;
+			}
+		}
+	}
+	
+	float mediana;
+	if(quantidade % 2 == 0) {
+		int meio = quantidade / 2;
+		mediana = (custos[meio - 1] + custos[meio]) / 2;
+	} else {
+		int meio = quantidade / 2;
+		mediana = custos[meio];
+	}
+
 	// Arquivo onde será armazenado as estatísticas do problema
 	FILE *estat = fopen("solucoes/estatisticas.txt", "w");
 
 	fprintf(estat, "Média: %.2f\n", (float) media);
+	fprintf(estat, "Mediana: %.2f\n", mediana);
 	fprintf(estat, "Desvio Padrão: %.2f\n", sqrt(variancia));
 	fprintf(estat, "Melhor Solução: solucao%d (%.2f)\n", indice_melhor + 1, solucoes[indice_melhor].custo);
 	fprintf(estat, "Pior Solução: solucao%d (%.2f)\n", indice_pior + 1, solucoes[indice_pior].custo);
