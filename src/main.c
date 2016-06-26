@@ -95,7 +95,6 @@ void nSolucoes(Instancia instancia, int quant_min_rotas) {
 	}
 
 	// Será utilizado uma matriz de rotas, pois é necessário armazenar cada uma das soluções para calcular a média, mediana e desvio padrão
-	// Rota **solucoes = (Rota **) malloc(quantidade * sizeof(Rota *));
 	Solucao solucoes[quantidade];
 
 	int rep;
@@ -106,6 +105,8 @@ void nSolucoes(Instancia instancia, int quant_min_rotas) {
 		rotasAleatorias(rotas, instancia);
 
 		printf("%d:\n", rep + 1);
+
+		// Exibe o custo da solução gerada aleatoriamente
 		printf("Aleatorio (custo): %f\n", custo(instancia.pontos[0], rotas, quant_min_rotas));
 
 		hillClimbing(rotas, instancia);
@@ -138,7 +139,6 @@ void nSolucoes(Instancia instancia, int quant_min_rotas) {
 	// Soma todos os custos para calcular a média e também procura pelas melhores e piores soluções
 	int i;
 	for(i = 0; i < rep; i++) {
-		// float cost = custo(instancia.pontos[0], solucoes[i], quant_min_rotas);
 
 		if(solucoes[i].custo < solucoes[indice_melhor].custo)
 			indice_melhor = i;
@@ -154,8 +154,6 @@ void nSolucoes(Instancia instancia, int quant_min_rotas) {
 	// Calcula a variância das rotas 
 	long double variancia = 0;
 	for(i = 0; i < rep; i++) {
-		// float cost = custo(instancia.pontos[0], solucoes[i], quant_min_rotas);
-
 		variancia += (solucoes[i].custo - media)*(solucoes[i].custo - media);
 	}
 
@@ -194,7 +192,7 @@ void solucoesPeriodo(Instancia instancia, int quant_min_rotas) {
 		solucoes[i].rotas = criarRotas(instancia);
 
 		rotasAleatorias(solucoes[i].rotas, instancia);
-		// hillClimbing(instancia, solucoes[i].rotas);
+		
 		hillClimbing(solucoes[i].rotas, instancia);
 
 		solucoes[i].custo = custo(instancia.pontos[0], solucoes[i].rotas, quant_min_rotas);
@@ -241,7 +239,6 @@ void solucoesPeriodo(Instancia instancia, int quant_min_rotas) {
 			atual.rotas[i].quant = 0;
 
 		rotasAleatorias(atual.rotas, instancia);
-		// hillClimbing(instancia, atual.rotas);
 		hillClimbing(atual.rotas, instancia);
 
 		// Armazena o valor do custo, portanto não será necessário calcular ele novamente
