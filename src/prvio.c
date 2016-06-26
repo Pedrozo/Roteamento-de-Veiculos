@@ -171,6 +171,9 @@ void lerDemanda(FILE *arquivo, Ponto pontos[], int dimensao) {
 	}
 }
 
+/*
+ * Escreve a solução no arquivo que foi escolhido, no padrão do site http://neo.lcc.uma.es/vrp/vrp-instances/capacitated-vrp-instances/
+*/
 void escreverSolucao(FILE *arquivo, Rota rotas[], int quantidade, Ponto deposito) {
 
 	int i, j;
@@ -184,4 +187,37 @@ void escreverSolucao(FILE *arquivo, Rota rotas[], int quantidade, Ponto deposito
 	}
 
 	fprintf(arquivo, "Cost: %.2f", custo(deposito, rotas, quantidade));
+}
+
+void escreverSolucaoDetalhada(FILE *arquivo, Rota rotas[], int quantidade, Ponto deposito) {
+	
+	int i, j;
+	for(i = 0; i < quantidade; i++) {
+		fprintf(arquivo, "Rota #%d:\n", i + 1);
+
+		fprintf(arquivo, "+----------------------------------+\n");
+		fprintf(arquivo, "| ID | COORD_X | COORD_Y | DEMANDA |\n");
+		fprintf(arquivo, "|----+---------+---------+---------|\n");
+		fprintf(arquivo, "|  1 | %7d | %7d | %7d |\n", deposito.x, deposito.y, 0);
+
+		float custo = distancia(deposito, rotas[i].caminho[0]);
+		int carga_util = 0;
+
+		for(j = 0; j < rotas[i].quant; j++) {
+			fprintf(arquivo, "| %2d | %7d | %7d | %7d |\n", rotas[i].caminho[j].id, rotas[i].caminho[j].x, rotas[i].caminho[j].y, rotas[i].caminho[j].demanda);
+			carga_util += rotas[i].caminho[j].demanda;
+
+			if(j < rotas[i].quant - 1)
+				custo += distancia(rotas[i].caminho[j], rotas[i].caminho[j + 1]);
+			else
+				custo += distancia(rotas[i].caminho[j], deposito);
+		}
+
+		fprintf(arquivo, "|  1 | %7d | %7d | %7d |\n", deposito.x, deposito.y, 0);
+		fprintf(arquivo, "+----------------------------------+\n");
+		fprintf(arquivo, "distância percorrida: %.2f\n", custo);
+		fprintf(arquivo, "carga útil: %d\n\n", carga_util);
+	}
+
+	fprintf(arquivo, "Custo: %.2f\n", custo(deposito, rotas, quantidade));
 }

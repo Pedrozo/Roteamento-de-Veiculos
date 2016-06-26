@@ -12,6 +12,7 @@ void nSolucoes(Instancia instancia, int quant_min_rotas);
 void solucoesPeriodo(Instancia instancia, int quant_min_rotas);
 
 int main() {
+
 	system("cls");
 	printf("Roteamento de Veiculos, Otimizacao por Hill Climbing\n");
 	printf("----------------------------------------------------\n");
@@ -128,6 +129,16 @@ void nSolucoes(Instancia instancia, int quant_min_rotas) {
 		escreverSolucao(arq, rotas, quant_min_rotas, instancia.pontos[0]);
 		fclose(arq);
 
+		caminho[0] = '\0';
+
+		strcat(caminho, "solucoes/solucao");
+		strcat(caminho, numero);
+		strcat(caminho, "_detalhada.txt");
+
+		arq = fopen(caminho, "w");
+		escreverSolucaoDetalhada(arq, rotas, quant_min_rotas, instancia.pontos[0]);	
+		fclose(arq);
+
 		// Armazena a solução encontrada
 		solucoes[rep].rotas = rotas;
 	}
@@ -193,6 +204,8 @@ void nSolucoes(Instancia instancia, int quant_min_rotas) {
 	fprintf(estat, "Desvio Padrão: %.2f\n", sqrt(variancia));
 	fprintf(estat, "Melhor Solução: solucao%d (%.2f)\n", indice_melhor + 1, solucoes[indice_melhor].custo);
 	fprintf(estat, "Pior Solução: solucao%d (%.2f)\n", indice_pior + 1, solucoes[indice_pior].custo);
+
+	fclose(estat);
 }
 
 // Função que vai executar o algoritmo durante um periodo de tempo
@@ -343,6 +356,15 @@ void solucoesPeriodo(Instancia instancia, int quant_min_rotas) {
 
 		FILE *arq = fopen(nome_arquivo, "w");
 		escreverSolucao(arq, solucoes[i].rotas, quant_min_rotas, instancia.pontos[0]);
+		fclose(arq);
+
+		nome_arquivo[0] = '\0';
+		strcat(nome_arquivo, "ranking/ranking");
+		strcat(nome_arquivo, numero);
+		strcat(nome_arquivo, "_detalhada.txt");
+
+		arq = fopen(nome_arquivo, "w");
+		escreverSolucaoDetalhada(arq, solucoes[i].rotas, quant_min_rotas, instancia.pontos[0]);
 		fclose(arq);
 	}
 }
