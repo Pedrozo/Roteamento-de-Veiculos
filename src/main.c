@@ -13,7 +13,7 @@ void solucoesPeriodo(Instancia instancia, int quant_min_rotas);
 
 int main() {
 
-	system("cls");
+	system("clear || cls");
 	printf("Roteamento de Veiculos, Otimizacao por Hill Climbing\n");
 	printf("----------------------------------------------------\n");
 	printf("Arquivo da instancia: ");
@@ -52,7 +52,7 @@ int main() {
 
 	srand(time(NULL));
 
-	system("cls");
+	system("clear || cls");
 	printf("O que deseja fazer ?\n");
 	printf("--------------------\n");
 	printf("[1] Gerar N solucoes\n");
@@ -82,7 +82,7 @@ int main() {
 
 // Função que vai executar o algoritmo N vezes
 void nSolucoes(Instancia instancia, int quant_min_rotas) {
-	system("cls");
+	system("clear || cls");
 	printf("Quantas solucoes deseja gerar ?\n");
 	printf("-------------------------------\n");
 	printf("> ");
@@ -210,7 +210,7 @@ void nSolucoes(Instancia instancia, int quant_min_rotas) {
 
 // Função que vai executar o algoritmo durante um periodo de tempo
 void solucoesPeriodo(Instancia instancia, int quant_min_rotas) {
-	system("cls");
+	system("clear || cls");
 	printf("Quantos solucoes no ranking ?\n");
 	printf("-----------------------------\n");
 	printf("> ");
@@ -249,7 +249,7 @@ void solucoesPeriodo(Instancia instancia, int quant_min_rotas) {
 		}
 	}
 
-	system("cls");
+	system("clear || cls");
 	printf("Quanto tempo deseja executalo (segundos) ?\n");
 	printf("-----------------------------------------\n");
 	printf("> ");
@@ -317,7 +317,7 @@ void solucoesPeriodo(Instancia instancia, int quant_min_rotas) {
 
 			solucoes[i].custo = atual.custo;
 
-			system("cls");
+			system("clear || cls");
 			for(i = 0; i < size; i++)
 				printf("%d: %.2f\n", i + 1, solucoes[i].custo);
 
