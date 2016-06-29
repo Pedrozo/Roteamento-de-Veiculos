@@ -1,3 +1,16 @@
+/**
+ * Problema de Roteamento de Veículos, Otimização através do algoritmo Hill Climbing;
+
+ * Objetivo: Procurar soluções aleatórias do problema e otimizalas pelo Hill Climbing;
+
+ * Data: 27/06/2016;
+
+ * Autores: Leonardo Pedrozo, Guilherme Lima, Matheus Silva, Helyederson Naves;
+
+ * Descrição: As etapas do programa são: Ler um arquivo de instância, gerar soluções aleatórias, 
+   otimizar elas através do Hill Climbing e por fim salvar cada solução encontrada em um arquivo de texto.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -11,16 +24,21 @@
 void nSolucoes(Instancia instancia, int quant_min_rotas);
 void solucoesPeriodo(Instancia instancia, int quant_min_rotas);
 
-int main() {
-
-	system("clear || cls");
-	printf("Roteamento de Veiculos, Otimizacao por Hill Climbing\n");
-	printf("----------------------------------------------------\n");
-	printf("Arquivo da instancia: ");
+int main(int argc, char *argv[]) {
 
 	char nome_arquivo[256];
 
-	scanf("%[^\n]", nome_arquivo);
+	// Permite dizer o nome do arquivo como argumento na linha de comando
+	if(argc > 1) {
+		strcpy(nome_arquivo, argv[1]);
+	} else {
+		system("cls");
+		printf("Roteamento de Veiculos, Otimizacao por Hill Climbing\n");
+		printf("----------------------------------------------------\n");
+		printf("Arquivo da instancia: ");
+
+		scanf("%[^\n]", nome_arquivo);
+	}
 
 	Instancia instancia;
 	FILE *arquivo = fopen(nome_arquivo, "r");
@@ -52,7 +70,7 @@ int main() {
 
 	srand(time(NULL));
 
-	system("clear || cls");
+	system("cls");
 	printf("O que deseja fazer ?\n");
 	printf("--------------------\n");
 	printf("[1] Gerar N solucoes\n");
@@ -80,9 +98,9 @@ int main() {
 	return 0;
 }
 
-// Função que vai executar o algoritmo N vezes
+// Procedimento que vai executar o algoritmo N vezes
 void nSolucoes(Instancia instancia, int quant_min_rotas) {
-	system("clear || cls");
+	system("cls");
 	printf("Quantas solucoes deseja gerar ?\n");
 	printf("-------------------------------\n");
 	printf("> ");
@@ -208,9 +226,9 @@ void nSolucoes(Instancia instancia, int quant_min_rotas) {
 	fclose(estat);
 }
 
-// Função que vai executar o algoritmo durante um periodo de tempo
+// Procedimento que vai executar o algoritmo durante um periodo de tempo
 void solucoesPeriodo(Instancia instancia, int quant_min_rotas) {
-	system("clear || cls");
+	system("cls");
 	printf("Quantos solucoes no ranking ?\n");
 	printf("-----------------------------\n");
 	printf("> ");
@@ -249,7 +267,7 @@ void solucoesPeriodo(Instancia instancia, int quant_min_rotas) {
 		}
 	}
 
-	system("clear || cls");
+	system("cls");
 	printf("Quanto tempo deseja executalo (segundos) ?\n");
 	printf("-----------------------------------------\n");
 	printf("> ");
@@ -317,7 +335,7 @@ void solucoesPeriodo(Instancia instancia, int quant_min_rotas) {
 
 			solucoes[i].custo = atual.custo;
 
-			system("clear || cls");
+			system("cls");
 			for(i = 0; i < size; i++)
 				printf("%d: %.2f\n", i + 1, solucoes[i].custo);
 
