@@ -12,5 +12,6 @@ void lerCoordenadas(FILE *arquivo, Ponto pontos[], int dimensao);
 void lerDemanda(FILE *arquivo, Ponto pontos[], int dimensao);
 void escreverSolucao(FILE *arquivo, Rota rotas[], int quantidade, Ponto deposito);
 void escreverSolucaoDetalhada(FILE *arquivo, Rota rotas[], int quantidade, Ponto deposito);
+void escreverSolucaoGrafico(FILE *arquivo, Rota rotas[], int quantidade, Ponto deposito);
 
 #endif

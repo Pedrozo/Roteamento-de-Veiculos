@@ -221,3 +221,18 @@ void escreverSolucaoDetalhada(FILE *arquivo, Rota rotas[], int quantidade, Ponto
 
 	fprintf(arquivo, "Custo: %.2f\n", custo(deposito, rotas, quantidade));
 }
+
+void escreverSolucaoGrafico(FILE *arquivo, Rota rotas[], int quantidade, Ponto deposito) {
+
+	fprintf(arquivo, "%d %d\n", deposito.x, deposito.y);
+
+	int i, j;
+	for(i = 0; i < quantidade; i++) {
+
+		fprintf(arquivo, "\n%d\n", rotas[i].quant);
+
+		for(j = 0; j < rotas[i].quant; j++) 
+			fprintf(arquivo, "%d %d\n", rotas[i].caminho[j].x, rotas[i].caminho[j].y);
+			
+	}
+}

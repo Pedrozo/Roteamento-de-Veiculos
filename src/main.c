@@ -384,5 +384,15 @@ void solucoesPeriodo(Instancia instancia, int quant_min_rotas) {
 		arq = fopen(nome_arquivo, "w");
 		escreverSolucaoDetalhada(arq, solucoes[i].rotas, quant_min_rotas, instancia.pontos[0]);
 		fclose(arq);
+
+
+		nome_arquivo[0] = '\0';
+		strcat(nome_arquivo, "grafico/solucao");
+		strcat(nome_arquivo, numero);
+		strcat(nome_arquivo, ".txt");
+
+		arq = fopen(nome_arquivo, "w");
+		escreverSolucaoGrafico(arq, solucoes[i].rotas, quant_min_rotas, instancia.pontos[0]);
+		fclose(arq);
 	}
 }
